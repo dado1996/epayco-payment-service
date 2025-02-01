@@ -1,4 +1,5 @@
 import { UserModel } from "../models/UserModel.js";
+import { WalletModel } from "../models/WalletModel.js";
 
 // User class to handle route logic
 export class UserController {
@@ -27,6 +28,7 @@ export class UserController {
    */
   async store(data) {
     const userModel = new UserModel();
+    const walletModel = new WalletModel();
     const existingUser =
       (await userModel.findUser(data.documentId)) ||
       (await userModel.findUserByEmail(data.email));
@@ -39,10 +41,14 @@ export class UserController {
     }
 
     const user = await userModel.insertUser(data);
+    const wallet = await walletModel.insertWallet(user.id);
     return {
-      status: 200,
+      status: 201,
       message: "User created succesfully",
-      data: user,
+      data: {
+        ...user,
+        ...wallet,
+      },
     };
   }
 }
