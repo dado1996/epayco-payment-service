@@ -13,7 +13,7 @@ routes.post(
   async (request, response, next) => {
     try {
       const result = await user.store(request.body);
-      response.status(200).json(result);
+      response.status(result.status).json(result);
     } catch (error) {
       next(error);
     }
