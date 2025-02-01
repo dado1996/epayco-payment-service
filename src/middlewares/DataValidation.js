@@ -1,6 +1,6 @@
 export const dataValidation = (source, objectSchema) => {
   return (request, response, next) => {
-    const { error, value } = objectSchema.validate(request[source], false);
+    const { error, value } = objectSchema.validate(request[source]);
     if (error) {
       response.status(400).json({
         status: 400,
