@@ -13,3 +13,16 @@ export const walletDepositSchema = Joi.object({
     }),
   amount: Joi.number().min(5.0).max(99999.99).precision(2).required(),
 });
+
+export const walletBalanceSchema = Joi.object({
+  documentId: Joi.string().alphanum().min(6).max(16).required(),
+  phone: Joi.string()
+    .pattern(/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/)
+    .length(10)
+    .required()
+    .messages({
+      "string.pattern.base":
+        "Phone number must be a valid Colombian phone number",
+      "string.length": "Phone number must be exactly 10 digits long",
+    }),
+});
