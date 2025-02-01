@@ -19,8 +19,8 @@ model Users {
   updatedAt  DateTime @updatedAt
   documentId String
   fullName   String
-  email      String
-  phone      Int
+  email      String   @unique
+  phone      String
   wallet     Wallets?
 }
 
