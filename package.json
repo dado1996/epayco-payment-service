@@ -9,11 +9,16 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "This is the service in charge of connecting to the database and do business logic behavior to manage the wallet",
   "dependencies": {
+    "@prisma/client": "^6.3.0",
     "express": "^4.21.2"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "@types/node": "^22.13.0",
+    "nodemon": "^3.1.9",
+    "prisma": "^6.3.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
   }
 }
