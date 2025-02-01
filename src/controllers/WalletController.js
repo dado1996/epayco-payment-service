@@ -2,6 +2,15 @@ import { WalletModel } from "../models/WalletModel.js";
 import { TransactionController } from "./TransactionController.js";
 
 export class WalletController {
+  /**
+   *
+   * @param {{
+   *  documentId: string;
+   *  phone: string;
+   *  amount: number;
+   * }} data
+   * @returns
+   */
   async walletDeposit(data) {
     const walletModel = new WalletModel();
     const transactionController = new TransactionController();
@@ -32,6 +41,25 @@ export class WalletController {
         ...walletUpdatedBalance,
         ...transaction,
       },
+    };
+  }
+
+  async checkBalance(data) {
+    const { documentId, phone } = data;
+    const walletModel = new WalletModel();
+
+    const wallet = await walletModel.findWalletByDocumentId(documentId);
+    if (!wallet || wallet.user.phone !== phone) {
+      return {
+        status: 400,
+        message: "Wallet associated with document id doesn't exists",
+      };
+    }
+
+    return {
+      status: 200,
+      message: "Data retrieved succesfully",
+      data: wallet,
     };
   }
 }
