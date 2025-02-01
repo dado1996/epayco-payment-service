@@ -26,6 +26,7 @@ model Users {
 
 model Wallets {
   id                      Int            @id @default(autoincrement())
+  walletId                String         @default(uuid())
   balance                 Float          @default(0.0)
   tempToken               String?
   transactionsOrigin      Transactions[] @relation(name: "walletOrigin")
@@ -36,7 +37,7 @@ model Wallets {
 
 model Transactions {
   id                  Int      @id @default(autoincrement())
-  transactionId       String
+  transactionId       String   @unique
   transactionType     String
   amount              Float
   status              String
