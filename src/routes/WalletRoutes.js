@@ -23,6 +23,7 @@ router.post(
   }
 );
 
+// Route to retrieve information about the wallet
 router.get(
   "/",
   dataValidation("query", walletBalanceSchema),
