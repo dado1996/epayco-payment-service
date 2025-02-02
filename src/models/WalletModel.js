@@ -1,6 +1,9 @@
 import { prisma } from "../utils/prisma.js";
 
 export class WalletModel {
+  /**
+   * Creates a new wallet
+   */
   async insertWallet(userId) {
     const wallet = await prisma.wallets.create({
       data: {
@@ -15,6 +18,9 @@ export class WalletModel {
     return wallet;
   }
 
+  /**
+   * Updates the balance of the wallet of the wallet id passed by
+   */
   async updateBalance(id, newBalance) {
     const result = await prisma.wallets.update({
       where: {
@@ -39,6 +45,9 @@ export class WalletModel {
     return result;
   }
 
+  /**
+   * Finds and retrieves the wallet by using the documentId value
+   */
   async findWalletByDocumentId(documentId) {
     const wallet = await prisma.wallets.findFirst({
       where: {
@@ -52,6 +61,7 @@ export class WalletModel {
         balance: true,
         user: {
           select: {
+            email: true,
             phone: true,
           },
         },
