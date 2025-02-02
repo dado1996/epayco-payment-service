@@ -44,6 +44,22 @@ export class WalletController {
     };
   }
 
+  /**
+   *  Retrieves the balance of the wallet
+   *
+   * @param {{
+   *  documentId: string;
+   *  phone: string;
+   * }} data
+   * @returns {{
+   *  status: number;
+   *  message: string;
+   *  data: {
+   *    walletId: string;
+   *    balance: number;
+   *  }
+   * }}
+   */
   async checkBalance(data) {
     const { documentId, phone } = data;
     const walletModel = new WalletModel();
@@ -55,6 +71,9 @@ export class WalletController {
         message: "Wallet associated with document id doesn't exists",
       };
     }
+
+    delete wallet.id;
+    delete wallet.user;
 
     return {
       status: 200,
