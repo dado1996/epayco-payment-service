@@ -73,7 +73,10 @@ export class TransactionController {
         commerceName: data.commerceName,
       });
 
-    const token = parseInt(Math.random() * 1000000).toString();
+    let token = parseInt(Math.random() * 1000000).toString();
+    if (token.length < 6) {
+      token += "0";
+    }
     const subject = "Epayco - Verification Code";
     const text = "This is your verification code: " + token;
 
@@ -134,7 +137,7 @@ export class TransactionController {
       transaction.walletOrigin.id,
       newBalance
     );
-    await transactionModel.updateStatus(transaction.transactionId, "completed");
+    await transactionModel.updateStatus(transaction.id, "completed");
     await transactionModel.updateToken(transaction.transactionId, null);
     delete transaction.walletOrigin;
 
