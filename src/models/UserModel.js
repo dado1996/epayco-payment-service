@@ -60,4 +60,20 @@ export class UserModel {
 
     return user;
   }
+
+  async findAll(skip = 0) {
+    const users = await prisma.users.findMany({
+      skip,
+      take: 10,
+      select: {
+        id: true,
+        documentId: true,
+        fullName: true,
+        email: true,
+        phone: true,
+      },
+    });
+
+    return users;
+  }
 }

@@ -70,4 +70,28 @@ export class WalletModel {
 
     return wallet;
   }
+
+  /**
+   * Returns all wallets
+   */
+  async findAll(offset = 0) {
+    const result = await prisma.wallets.findMany({
+      skip: offset,
+      take: 10,
+      select: {
+        id: true,
+        walletId: true,
+        balance: true,
+        user: {
+          select: {
+            documentId: true,
+            fullName: true,
+            phone: true,
+          },
+        },
+      },
+    });
+
+    return result;
+  }
 }

@@ -25,7 +25,7 @@ router.post(
 
 // Route to retrieve information about the wallet
 router.get(
-  "/",
+  "/balance",
   dataValidation("query", walletBalanceSchema),
   async (request, response, next) => {
     try {
@@ -36,5 +36,17 @@ router.get(
     }
   }
 );
+
+// Route to get all wallets
+router.get("/", async (request, response, next) => {
+  try {
+    const result = await walletController.findAll(
+      parseInt(request.query.offset) || 0
+    );
+    return response.status(result.status).json(result);
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default router;

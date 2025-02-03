@@ -51,4 +51,20 @@ export class UserController {
       },
     };
   }
+
+  /**
+   * Finds and returns 10 users based on offset value
+   *
+   * @param {number} offset
+   */
+  async find(offset) {
+    const userModel = new UserModel();
+    const users = await userModel.findAll(offset);
+
+    return {
+      status: 200,
+      message: "Users found succesfully",
+      data: users,
+    };
+  }
 }

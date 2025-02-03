@@ -1,3 +1,4 @@
+import { json } from "stream/consumers";
 import { WalletModel } from "../models/WalletModel.js";
 import { TransactionController } from "./TransactionController.js";
 
@@ -9,7 +10,13 @@ export class WalletController {
    *  phone: string;
    *  amount: number;
    * }} data
-   * @returns
+   * @returns {Promise<{
+   *  status: number;
+   *  message: string;
+   *  data: {
+   *
+   *  }
+   * }>}
    */
   async walletDeposit(data) {
     const walletModel = new WalletModel();
@@ -51,14 +58,14 @@ export class WalletController {
    *  documentId: string;
    *  phone: string;
    * }} data
-   * @returns {{
+   * @returns {Promise<{
    *  status: number;
    *  message: string;
    *  data: {
    *    walletId: string;
    *    balance: number;
    *  }
-   * }}
+   * }>}
    */
   async checkBalance(data) {
     const { documentId, phone } = data;
@@ -79,6 +86,33 @@ export class WalletController {
       status: 200,
       message: "Data retrieved succesfully",
       data: wallet,
+    };
+  }
+
+  /**
+   *
+   * @param {number} offset
+   * @returns {Promise<{
+   *  status: number;
+   *  message: string;
+   *  data: {
+   *    id: number;
+   *    walletId: string;
+   *    balance: number;
+   *    user: {
+   *      fullName: string;
+   *    };
+   *  }
+   * }>}
+   */
+  async findAll(offset) {
+    const walletModel = new WalletModel();
+    const wallets = await walletModel.findAll(offset);
+
+    return {
+      status: 200,
+      message: "Wallets found succesfully",
+      data: wallets,
     };
   }
 }
