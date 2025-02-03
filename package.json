@@ -10,7 +10,10 @@
     "migrate": "prisma migrate dev"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "Diego Delgado",
+    "email": "diego.960705@gmail.com"
+  },
   "license": "ISC",
   "description": "This is the service in charge of connecting to the database and do business logic behavior to manage the wallet",
   "dependencies": {
