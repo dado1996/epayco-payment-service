@@ -88,6 +88,7 @@ export class TransactionModel {
         transactionId: sessionId,
       },
       select: {
+        id: true,
         transactionId: true,
         amount: true,
         commerceId: true,
